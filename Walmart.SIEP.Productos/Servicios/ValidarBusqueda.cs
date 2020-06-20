@@ -7,7 +7,7 @@ namespace Walmart.SIEP.Productos.Servicios {
         public ValidarBusqueda(string palabra) : base(palabra) {}
 
         public override bool ValidarPalindromo(string palabraBusqueda) {
-            return palabraBusqueda.SequenceEqual(palabraBusqueda.Reverse());
+            return palabraBusqueda.Length > 1 ? palabraBusqueda.SequenceEqual(palabraBusqueda.Reverse()) : false;
         }
     }
 }
