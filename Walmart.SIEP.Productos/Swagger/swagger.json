@@ -1,0 +1,59 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "V1",
+    "title": "Prueba tecnica Walmart - Amaris",
+    "description": "API para consultar productos desde una BD Mongo",
+    "contact": {
+      "name": "Sebastian Echalar Penailillo",
+      "url": "https://www.linkedin.com/in/sechalarp",
+      "email": "sechalarp@icloud.com"
+    }
+  },
+  "paths": {
+    "/api/productos/obtenerproductos": {
+      "get": {
+        "tags": [ "Productos" ],
+        "operationId": "ObtenerProductos",
+        "consumes": [ "application/json-patch+json", "application/json", "text/json", "application/*+json" ],
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "producto",
+            "description": "Metodo que retorna productos segun el valor entregado",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok.  IdError : null, MessageError : vacio , Value : [{JSON Object}]",
+            "schema": { "$ref": "#/definitions/ResultResponse" }
+          },
+          "400": {
+            "description": "BadRequest - Campo requerido."
+          },
+          "404": {
+            "description": "Recurso no encontrado. IdError : Identificador de error, MessageError : Mensaje descriptivo, Value : null",
+            "schema": { "$ref": "#/definitions/ResultResponse" }
+          },
+          "500": {
+            "description": "Error interno. Refierase a Log AppInsight Azure con el IdError.  IdError : Identificador de error, MessageError : Mensaje descriptivo, Value : null",
+            "schema": { "$ref": "#/definitions/ResultResponse" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ResultResponse": {
+      "type": "object",
+      "properties": {
+        "idError": { "type": "string" },
+        "messageError": { "type": "string" },
+        "data": { "type": "string" }
+      }
+    }
+  }
+}
