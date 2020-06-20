@@ -52,7 +52,12 @@
       "properties": {
         "idError": { "type": "string" },
         "messageError": { "type": "string" },
-        "data": { "type": "string" }
+        "data": { "type": "string" },
+        "isPalindromo": {
+          "type": "boolean",
+          "default": "false",
+          "description": "Si la palabra fue un palindromo, retorna true, sino, false"
+        }
       }
     }
   }

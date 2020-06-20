@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using System.Collections.Generic;
 using System.Linq;
 using Walmart.SIEP.Productos.Data;
 using Walmart.SIEP.Productos.Helpers;
@@ -7,46 +9,34 @@ using Walmart.SIEP.Productos.Models.Clases;
 
 namespace Walmart.SIEP.Productos.Servicios {
     public class QueryFinder : DataQueryHelper {
-        private IQueryable<ProductoDTO> resultado;
-        private IMongoCollection<ProductoDTO> resultData;
-        public QueryFinder(string palabra) : base(palabra) { }
+        private List<ProductoDTO> listResultDB;
+        public QueryFinder(string palabra) : base(palabra) {
+            listResultDB = new List<ProductoDTO>();
+        }
 
-        public override IQueryable<ProductoDTO> GetProductById(int palabra) {
+        public override List<ProductoDTO> GetProductById(int palabra) {
             ProductsData data = new ProductsData();
-            resultData = data.GetProductDataById();
-            resultado = from r in resultData.AsQueryable()
+            IMongoCollection<ProductoDTO> resultData = data.GetProductDataById();
+            listResultDB = (from r in resultData.AsQueryable()
                         where r.IdProductoDTO == palabra
-                        select r;
-            return resultado;
+                        select new ProductoDTO { IdObjetoDTO = r.IdObjetoDTO, IdProductoDTO = r.IdProductoDTO, MarcaProductoDTO = r.MarcaProductoDTO, DescripcionProductoDTO = r.DescripcionProductoDTO, FotoProductoDTO = r.FotoProductoDTO, ValorProductoDTO = r.ValorProductoDTO }).ToList();
+            return listResultDB;
         }
 
-        public override IQueryable<ProductoDTO> GetProductByBrand(string palabra) {
+        public override List<ProductoDTO> GetProductByName(string palabra) {
             ProductsData data = new ProductsData();
-            resultData = data.GetProductDataByName();//DRY!
-            resultado = from c in resultData.AsQueryable()
-                        where c.MarcaProductoDTO.Contains(palabra)
-                        select c;
-            return resultado;
-        }
 
-        public override IQueryable<ProductoDTO> GetProductByDescription(string palabra) {
-            ProductsData data = new ProductsData();
-            resultData = data.GetProductDataByName();//DRY!
-            resultado = from c in resultData.AsQueryable()
-                        where c.DescripcionProductoDTO.Contains(palabra)
-                        select c;
-            return resultado;
-        }
+            IMongoCollection<BsonDocument> products =  data.GetProductDataByName();
+            FilterDefinitionBuilder<BsonDocument> builder = Builders<BsonDocument>.Filter;
+            FilterDefinition<BsonDocument> filter = @"{ $or: [{ ""brand"" : {$in: [/$palabra$/] }},{ ""description"" : {$in: [/$palabra$/] }}] }".Replace("$palabra$", palabra);
+            List<BsonDocument> resultFiltros = products.Find(filter).ToList();
 
-        public override IQueryable<ProductoDTO> GetProductByName(string palabra) {
-            ProductsData data = new ProductsData();
-            resultData = data.GetProductDataByName();//DRY!
-            resultado = from c in resultData.AsQueryable()
-                        where c.DescripcionProductoDTO.Contains(palabra)
-                        select c;
+            foreach (BsonDocument item in resultFiltros) {
+                ProductoDTO myObj = BsonSerializer.Deserialize<ProductoDTO>(item);
+                listResultDB.Add(myObj);
+            }
 
-            
-            return resultado;
+            return listResultDB;
         }
     }
 }

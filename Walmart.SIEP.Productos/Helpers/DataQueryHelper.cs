@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using Walmart.SIEP.Productos.Models.Clases;
 
 namespace Walmart.SIEP.Productos.Helpers {
@@ -10,12 +10,8 @@ namespace Walmart.SIEP.Productos.Helpers {
             palabra = _palabra;
         }
 
-        public abstract IQueryable<ProductoDTO> GetProductById(int palabra);
+        public abstract List<ProductoDTO> GetProductById(int palabra);
 
-        public abstract IQueryable<ProductoDTO> GetProductByBrand(string palabra);
-
-        public abstract IQueryable<ProductoDTO> GetProductByDescription(string palabra);
-
-        public abstract IQueryable<ProductoDTO> GetProductByName(string palabra);
+        public abstract List<ProductoDTO> GetProductByName(string palabra);
     }
 }

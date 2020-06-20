@@ -18,7 +18,7 @@ namespace Walmart.SIEP.Productos.Servicios {
             _telemetry.TrackException(telemetry);
             ResultResponse obj = new ResultResponse {
                 IdError = telemetry.ProblemId,
-                Data = "Error"
+                //Data = "Error"
             };
             return obj;
         }

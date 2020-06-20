@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Walmart.SIEP.Productos.Helpers;
 using Walmart.SIEP.Productos.Models.Enums;
@@ -22,17 +18,17 @@ namespace Walmart.SIEP.Productos.Controllers {
         /// <param name="producto">Corresponde al IdProducto, Marca o Descripción para buscar en BD</param>
         /// <returns>JSON Object</returns>
         [HttpGet("obtenerproductos")]
-        public async Task<ActionResult<ResultResponse>> ObtenerProductos([FromHeader] string producto) {
+        public ActionResult<ResultResponse> ObtenerProductos([FromHeader] string producto) {
             if (string.IsNullOrEmpty(producto))
                 return BadRequest(StringHelper.GetDescription(EMessages.EMessageProductNullOrEmpty));
 
             PalindromoHelper palindrome = new ValidarBusqueda(producto);
             PalindromoService objectPalindromo = new PalindromoService(palindrome, _telemetry);
-            bool resultPalindromo = Convert.ToBoolean(objectPalindromo.ValidarPalindromo(producto).Data);
+            bool resultPalindromo = Convert.ToBoolean(objectPalindromo.ValidarPalindromo(producto).IsPalindromo);
 
             ProductosService objectService = new ProductosService(_telemetry);
-            ResultResponse registro = objectService.ObtenerProducto(producto, resultPalindromo);
-            return Ok(registro);
+            ResultResponse registros = objectService.ObtenerProducto(producto, resultPalindromo);
+            return Ok(registros);
         }
     }
 }

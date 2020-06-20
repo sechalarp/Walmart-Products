@@ -16,7 +16,7 @@ namespace Walmart.SIEP.Productos.Servicios {
                 bool resultadoPalindromo = _palindromo.ValidarPalindromo(palabra);
                 return new ResultResponse {
                     MessageError = string.Empty,
-                    Data = Convert.ToBoolean(resultadoPalindromo).ToString()
+                    IsPalindromo = resultadoPalindromo
                 };
             } catch (PalindromoException ex) {
                 string mensajeCliente = ex.Message.Split(":|")[1];

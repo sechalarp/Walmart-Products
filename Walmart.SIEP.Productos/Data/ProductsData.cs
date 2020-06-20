@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using Walmart.SIEP.Productos.Helpers;
 using Walmart.SIEP.Productos.Models.Clases;
 
@@ -14,12 +15,8 @@ namespace Walmart.SIEP.Productos.Data {
             return client.GetDatabase(AppSettingsHelper.GetKeyString("BD:Nombre"));
         }
 
-        //public async Task<List<ProductoDTO>> GetProductData() {
-        //    return await _walmartDB.GetCollection<ProductoDTO>("products").Find(new BsonDocument()).ToListAsync();
-        //}
-
-        public IMongoCollection<ProductoDTO> GetProductDataByName() {
-            return _walmartDB.GetCollection<ProductoDTO>("products");
+        public IMongoCollection<BsonDocument> GetProductDataByName() {
+            return _walmartDB.GetCollection<BsonDocument>("products");
         }
 
         public IMongoCollection<ProductoDTO> GetProductDataById() {
