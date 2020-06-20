@@ -14,9 +14,8 @@ namespace Walmart.SIEP.Productos.Servicios {
         internal ResultResponse ObtenerProducto(string palabra, bool isPalindromo) {
             try {
                 bool isPalabraNumeric = false;
-                int palabraNumerica = 0;
 
-                if (int.TryParse(palabra, out palabraNumerica))
+                if (int.TryParse(palabra, out int palabraNumerica))
                     isPalabraNumeric = true;
 
                 DataQueryHelper queryResult = new QueryFinder(palabra);

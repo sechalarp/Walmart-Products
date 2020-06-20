@@ -52,7 +52,17 @@
       "properties": {
         "idError": { "type": "string" },
         "messageError": { "type": "string" },
-        "data": { "type": "string" },
+        "data": {
+          "type": "object",
+          "properties": {
+            "_id": { "type": "string" },
+            "id": { "type": "integer" },
+            "brand": { "type": "string" },
+            "description": { "type": "string" },
+            "image": { "type": "string" },
+            "price": { "type": "number" }
+          }
+        },
         "isPalindromo": {
           "type": "boolean",
           "default": "false",
