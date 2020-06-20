@@ -1,6 +1,5 @@
 ﻿using Microsoft.ApplicationInsights;
 using System;
-using Walmart.SIEP.Productos.Exceptions;
 using Walmart.SIEP.Productos.Helpers;
 using Walmart.SIEP.Productos.Models.Response;
 
@@ -18,11 +17,6 @@ namespace Walmart.SIEP.Productos.Servicios {
                     MessageError = string.Empty,
                     IsPalindromo = resultadoPalindromo
                 };
-            } catch (PalindromoException ex) {
-                string mensajeCliente = ex.Message.Split(":|")[1];
-                ResultResponse result = RegisterException(ex);
-                result.MessageError = $"{result.MessageError} : {mensajeCliente}";
-                return result;
             } catch (Exception ex) {
                 return RegisterException(ex);
             }

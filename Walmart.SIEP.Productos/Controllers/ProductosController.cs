@@ -2,7 +2,6 @@
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using Walmart.SIEP.Productos.Helpers;
-using Walmart.SIEP.Productos.Models.Enums;
 using Walmart.SIEP.Productos.Models.Response;
 using Walmart.SIEP.Productos.Servicios;
 
@@ -19,8 +18,10 @@ namespace Walmart.SIEP.Productos.Controllers {
         /// <returns>JSON Object</returns>
         [HttpGet("obtenerproductos")]
         public ActionResult<ResultResponse> ObtenerProductos([FromHeader] string producto) {
-            if (string.IsNullOrEmpty(producto))
-                return BadRequest(StringHelper.GetDescription(EMessages.EMessageProductNullOrEmpty));
+            ValidarRequestService validacionService = new ValidarRequestService(_telemetry);
+            ResultResponse resultValidate = validacionService.CheckRequest(producto);
+            if (!string.IsNullOrEmpty(resultValidate.IdError))
+                return BadRequest(resultValidate.MessageError);
 
             PalindromoHelper palindrome = new ValidarBusqueda(producto);
             PalindromoService objectPalindromo = new PalindromoService(palindrome, _telemetry);
