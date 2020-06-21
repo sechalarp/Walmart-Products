@@ -38,7 +38,13 @@ namespace Walmart.SIEP.Productos {
             });
 
             services.AddHttpClient();
-            services.AddCors();
+            services.AddCors(options => {
+                options.AddPolicy("default", builder => {
+                    builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
@@ -58,6 +64,8 @@ namespace Walmart.SIEP.Productos {
                 config.SwaggerEndpoint("/swagger/swagger.json", "v1.0");
                 config.RoutePrefix = "swagger/swagger";
             });
+
+            app.UseCors("default");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
