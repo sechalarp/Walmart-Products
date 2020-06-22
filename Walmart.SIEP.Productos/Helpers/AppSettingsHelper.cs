@@ -8,7 +8,7 @@ namespace Walmart.SIEP.Productos.Helpers {
         static AppSettingsHelper() {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("settings/appsettings.secrets.json");
+                .AddJsonFile("appsettings.json");
 
             Configuration = builder.Build();
         }
