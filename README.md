@@ -34,3 +34,5 @@ Con ese script, estamos construyendo la imagen del proyecto, le asignamos un nom
 
 ### Extra
 La aplicación backend, posee un sistema de seguimiento de errores o exceptions, por lo que esto se hace por medio de Azure AppInsights. Si deseas conectar el monitoreo a tu propio ApplicationInsights de Azure, debes modificar en el archivo `appsettings.json`, el valor asignado a: `ApplicationInsights:InstrumentationKey`
+
+![](https://github.com/sechalarp/imagenes-varias/blob/master/AppInsig_Azure.png)
