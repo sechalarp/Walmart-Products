@@ -15,11 +15,11 @@ Con ese script, estamos construyendo la imagen del proyecto, le asignamos un nom
 
 5. puedes ejecutar cualquier de los 2 siguientes scripts. Detallo que hace cada uno:
 
-`run -it --rm -p 8787:80 walmart-siep-backend:v1`
+`docker run -it --rm -p 8787:80 walmart-siep-backend:v1`
 - Crea un nuevo contenedor en modo interactivo `-it` y luego de finalizar la ejecución del proyecto, elimina inmediatamente el contenedor `--rm`. Además, al puerto 8787 se le mapea al puerto 80 y finalmente, se indica el nombre de la imagen a utilizar. 
 
 
-`run -d -p 8787:80 --name walmart-backend walmart-siep-backend:v1`
+`docker run -d -p 8787:80 --name walmart-backend walmart-siep-backend:v1`
 - Crea un nuevo contenedor, en modo iniciado `-d` luego se publica `-p` se mapea el puerto 8787 al 80, se le asigna un nombre al contenedor `--name` y finalmente, se le indica el nombre de la imagen.
 
 6. Para el caso 2, si ahora ejecutas `docker ps` verás el contenedor corriendo en `localhost:8787`
