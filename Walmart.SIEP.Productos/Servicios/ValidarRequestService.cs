@@ -6,10 +6,10 @@ using Walmart.SIEP.Productos.Models.Enums;
 using Walmart.SIEP.Productos.Models.Response;
 
 namespace Walmart.SIEP.Productos.Servicios {
-    internal class ValidarRequestService : ServiceBase{
-        internal ValidarRequestService(TelemetryClient telemetry) : base(telemetry) { }
+    public class ValidarRequestService : ServiceBase{
+        public ValidarRequestService(TelemetryClient telemetry) : base(telemetry) { }
 
-        internal ResultResponse CheckRequest(string palabra) {
+        public ResultResponse CheckRequest(string palabra) {
 			try {
                 if (string.IsNullOrEmpty(palabra))
                     throw new ValidarRequestException(StringHelper.GetDescription(EMessages.EMessageProductNullOrEmpty));
