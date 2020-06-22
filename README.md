@@ -25,8 +25,6 @@ Con ese script, estamos construyendo la imagen del proyecto, le asignamos un nom
 6. Para el caso 2, si ahora ejecutas `docker ps` verás el contenedor corriendo en `localhost:8787`
 
 7. Ahora solo debes ir a tu navegador favorito e ingresar la siguiente url `localhost:8787/swagger/swagger` y verás esto.
-![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
-[![](https://github.com/sechalarp/imagenes-varias/blob/master/SwaggerBackend.png "Imagen Swagger")](https://github.com/sechalarp/imagenes-varias/blob/master/SwaggerBackend.png "Imagen Swagger")
 
 ![](https://github.com/sechalarp/imagenes-varias/blob/master/SwaggerBackend.png)
 
